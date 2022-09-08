@@ -4,7 +4,8 @@ const reducer = (prevState, action) => {
         case "SET_NEWS": {
             const newState = {
                 ...prevState,
-                news: action.payload
+                news: action.payload.news,
+                nbPages: action.payload.nbPages
             }
             return newState
         }
@@ -33,6 +34,27 @@ const reducer = (prevState, action) => {
             return newState
         }
 
+        case "HANDLE_PAGE-NUMBER" : {
+            if(action.payload === "prev" && prevState.pageNumber === 0){
+                const newState = {
+                    ...prevState,
+                    pageNumber: prevState.nbPages - 1
+                }
+                return newState
+            } else if(action.payload === "next" && prevState.pageNumber === prevState.nbPages - 1){
+                const newState = {
+                    ...prevState,
+                    pageNumber: 0
+                }
+                return newState
+            } else {
+                const newState = {
+                    ...prevState,
+                    pageNumber : action.payload === "next" ? prevState.pageNumber + 1 : prevState.pageNumber - 1
+                }
+                return newState
+            }
+        }
         default:
             return prevState
     }
