@@ -7,10 +7,12 @@ import { StateContextProvider } from './context/StateContextProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <StateContextProvider>
-    <React.StrictMode>
-      <App />
+ 
+    <React.StrictMode> 
+      <StateContextProvider>
+        <App />
+      </StateContextProvider>
     </React.StrictMode>
-  </StateContextProvider>
+  
 );
 

@@ -17,6 +17,22 @@ const reducer = (prevState, action) => {
             return newState
         }
 
+        case "SET_SEARCH-TERM" : {
+            const newState = {
+                ...prevState,
+                searchTerm: action.payload
+            }
+            return newState
+        }
+
+        case "REMOVE_ARTICLE" : {
+            const newState = {
+                ...prevState,
+                news: prevState.news.filter( element => element.objectID !== action.payload)
+            }
+            return newState
+        }
+
         default:
             return prevState
     }

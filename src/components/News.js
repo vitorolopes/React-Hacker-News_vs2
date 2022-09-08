@@ -4,7 +4,7 @@ import { useStateContext } from '../context/StateContextProvider';
 
 const News = () => {
 
-  const {news, loading} = useStateContext()
+  const {news, loading, removeArticle} = useStateContext()
   
   if(loading) return (<div className='loading'></div>)
 
@@ -19,7 +19,11 @@ const News = () => {
                     <p className="info">{points} points by {author} | {num_comments} comments</p>
                     <div>
                         <a className="read-link" href={url}>read more</a>
-                        <button className="remove-btn">remove</button>
+                        <button className="remove-btn"
+                                onClick={() => removeArticle(objectID)}
+                        >
+                            remove
+                        </button>
                     </div>
                 </div>
             )

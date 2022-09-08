@@ -5,37 +5,41 @@ const StateContext = createContext()
 
 const initialState = {
     news: [],
-    loading: false
+    loading: false,
+    searchTerm: "REACT"
 }
 
 export const StateContextProvider = ({children}) => { 
 
-    // const [news, setNews] = useState([])
-    // const [loading, setLoading] = useState(false)
-
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const fetchNews = async () => {
-        // setLoading(true)
         dispatch({type: "SET_LOADING", payload: true})
-        const res = await fetch("http://hn.algolia.com/api/v1/search?query=UKRAINE")
+        const res = await fetch(`http://hn.algolia.com/api/v1/search?query=${state.searchTerm}`)
         const data = await res.json()
-        console.log(data.hits)
-        // setNews(data.hits)
+        console.log(data)
         dispatch({type: "SET_NEWS", payload: data.hits})
-        // setLoading(false)
         dispatch({type: "SET_LOADING", payload: false})
     }
 
     useEffect(() => {
       fetchNews()
-    }, [])
+    }, [state.searchTerm])
     
+    const setSearchTerm = (newSearchTerm) => { 
+        dispatch({type: "SET_SEARCH-TERM", payload: newSearchTerm})
+    }
+
+    const removeArticle = (id) => {
+        dispatch({type: "REMOVE_ARTICLE", payload: id})
+    }
 
     return(
         <StateContext.Provider
             value={{
-                ...state
+                ...state,
+                setSearchTerm,
+                removeArticle
             }}
         >
             {children}
