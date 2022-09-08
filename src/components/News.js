@@ -10,17 +10,20 @@ const News = () => {
 
   return (
     <article className='stories'>
-        <div className="story">
-            <h4 className="title"> story1</h4>
-            <p className="info">info1</p>
-            <div>
-                <a className="read-link" href='/'>read more</a>
-                <button className="remove-btn">remove</button>
-            </div>
-        </div>
 
-        <div className="story">story2</div>
-        <div className="story">story3</div>
+        {news.map( element => {
+            const {title, points, author, num_comments, url, objectID} = element
+            return (
+                <div className="story" key={objectID}>
+                    <h4 className="title">{title}</h4>
+                    <p className="info">{points} points by {author} | {num_comments} comments</p>
+                    <div>
+                        <a className="read-link" href={url}>read more</a>
+                        <button className="remove-btn">remove</button>
+                    </div>
+                </div>
+            )
+        })}
 
     </article>
   )

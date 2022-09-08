@@ -12,6 +12,7 @@ export const StateContextProvider = ({children}) => {
         const res = await fetch("http://hn.algolia.com/api/v1/search?query=UKRAINE")
         const data = await res.json()
         console.log(data.hits)
+        setNews(data.hits)
         setLoading(false)
     }
 
